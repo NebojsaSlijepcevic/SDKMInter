@@ -1,0 +1,22 @@
+<linker>
+	<assembly fullname="Assembly-CSharp" ignoreIfMissing="1">
+		<type fullname="CanvasManager">
+			<method name="CloseLoginPanel"/>
+			<method name="OpenLoginPanel"/>
+		</type>
+		<type fullname="ThirdwebSDKDemos">
+			<method name="BuyListing"/>
+			<method name="Deploy"/>
+			<method name="GetERC1155"/>
+			<method name="GetERC20"/>
+			<method name="GetERC721"/>
+			<method name="GetListing"/>
+			<method name="Mint"/>
+			<method name="MintERC1155"/>
+			<method name="MintERC20"/>
+			<method name="OnBalanceClick"/>
+			<method name="OnLoginCLick"/>
+			<method name="OnSignClick"/>
+		</type>
+	</assembly>
+</linker>
