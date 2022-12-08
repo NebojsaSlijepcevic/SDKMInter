@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D0E44A6B-B53B-65D7-852B-9020407F86E0}</ProjectGuid>
+    <ProjectGuid>{4F234F35-E157-8F28-C1CB-4EFDDE47D6E2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -57,20 +57,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Thirdweb\Scripts\ERC1155.cs" />
+    <Compile Include="Assets\Scripts\NFTStorageClient.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\Deployer.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\ThirdwebSDK.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\Wallet.cs" />
+    <Compile Include="Assets\Scripts\CanvasManager.cs" />
     <Compile Include="Assets\Scripts\ThirdwebSDKDemos.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\ERC721.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\Contract.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\Types.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\Marketplace.cs" />
+    <Compile Include="Assets\Scripts\DownloadAndUploadImage.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\Utils.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\Bridge.cs" />
     <Compile Include="Assets\Thirdweb\Scripts\ERC20.cs" />
-    <Compile Include="Assets\Scripts\CanvasManager.cs" />
-    <Compile Include="Assets\Scripts\NFTStorageClient.cs" />
-    <Compile Include="Assets\Scripts\DownloadAndUploadImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

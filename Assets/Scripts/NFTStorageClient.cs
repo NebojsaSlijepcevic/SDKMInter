@@ -222,7 +222,7 @@ namespace NFTStorage
 
 
 
-        UnityWebRequest uwr;
+        public static UnityWebRequest uwr;
 
         IEnumerator PostRequest(string url, string filePath)
         {

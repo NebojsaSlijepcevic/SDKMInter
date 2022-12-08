@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using System;
 using System.Collections;
+using NFTStorage;
 
 public class ThirdwebSDKDemos : MonoBehaviour
 {
@@ -33,9 +34,13 @@ public class ThirdwebSDKDemos : MonoBehaviour
     public NFTStorage.NFTStorageClient NSC;
     private string fullPath;
     public GameObject cid;
+
+    private int gameId;
+
     void Start()
     {
         sdk = new ThirdwebSDK("mumbai");
+        gameId = 1;
         attack = 10;
         health = 50;
         shield = 50;
@@ -63,28 +68,22 @@ public class ThirdwebSDKDemos : MonoBehaviour
     {
         loginButton.text = "Connecting...";
         address = await sdk.wallet.Connect();
-        //loginButton.text = "Connected as: " + address.Substring(0, 6) + "...";
         int chain = await sdk.wallet.GetChainId();
+
         connectButton.SetActive(false);
         accountText.SetActive(true);
         accountBalanceText.SetActive(true);
         accountText.GetComponent<TMP_Text>().text = "Connected at: " + address;
         menuAccountText.text = address;
-       // OnBalanceClick();
+
         balance = await sdk.wallet.GetBalance();
         accountBalanceText.GetComponent<TMP_Text>().text = "Ballance: " + balance.displayValue + " "+ balance.symbol;
-        //accountText.SetActive(true);
-        //accountBalanceText.SetActive(true);
-        //if (chain != 5) {
-        //    await sdk.wallet.SwitchNetwork(5);
-        //}
     }
 
     public async void OnBalanceClick()
     {
         balanceText.text = "Loading...";
         balance = await sdk.wallet.GetBalance();
-        //balanceText.text = "Balance: " + balance.displayValue.Substring(0,3) + " " + balance.symbol;
     }
 
     public async void OnSignClick()
@@ -155,13 +154,13 @@ public class ThirdwebSDKDemos : MonoBehaviour
     public IEnumerator MintCoroutine()
     {
         UploadImageToNFTStorage();
-        yield return new WaitForSeconds(7.5f);
+        yield return new WaitUntil(() => NFTStorageClient.uwr.isDone);
         MintERC721();
     }
     public async void MintERC721()
     {
         TextMeshPro cidText = cid.GetComponent<TextMeshPro>();
-        resultText.text = "SigMinting... (needs minter role to generate signature)";
+        resultText.text = "Minting...";
         // claim
         // var contract = sdk.GetContract("0x2e01763fA0e15e07294D74B63cE4b526B321E389"); // NFT Drop
         // resultText.text = "claiming...";
@@ -171,18 +170,19 @@ public class ThirdwebSDKDemos : MonoBehaviour
         // resultText.text = "claimed tokenId: " + result[0].id;
         
         // sig mint
-        var contract = sdk.GetContract("0xbB6cc3412E9723a5A1434773556A95d23eeC3CA0"); // NFT Collection
+        var contract = sdk.GetContract("0x8eDf6fb4d071790A6703d1094E0Ab5EEd4332092"); // NFT Collection
         var meta = new NFTMetadata() {
             name = "Unity NFT",
             description = "Minted From Unity (signature)",
             image = "https://ipfs.io/ipfs/" + cidText.text,
             
         };
-        meta.traits = new Attributes[4];
-        meta.traits[0] = new Attributes { trait_type = "Attack", value = attack.ToString() };
-        meta.traits[1] = new Attributes { trait_type = "Health", value = health.ToString() };
-        meta.traits[2] = new Attributes { trait_type = "Shield", value = shield.ToString() };
-        meta.traits[3] = new Attributes { trait_type = "SpellPower", value = spellPower.ToString() };
+        meta.traits = new Attributes[5];
+        meta.traits[0] = new Attributes { trait_type = "Game ID", value = gameId.ToString() };
+        meta.traits[1] = new Attributes { trait_type = "Attack", value = attack.ToString() };
+        meta.traits[2] = new Attributes { trait_type = "Health", value = health.ToString() };
+        meta.traits[3] = new Attributes { trait_type = "Shield", value = shield.ToString() };
+        meta.traits[4] = new Attributes { trait_type = "SpellPower", value = spellPower.ToString() };
 
         string connectedAddress = await sdk.wallet.GetAddress();
         var payload = new ERC721MintPayload(connectedAddress, meta);
@@ -190,9 +190,9 @@ public class ThirdwebSDKDemos : MonoBehaviour
         var result = await contract.ERC721.signature.Mint(p);
 
         if (result.isSuccessful()) {
-            resultText.text = "SigMinted tokenId: " + result.id;
+            resultText.text = "Minted token with Id: " + result.id;
         } else {
-            resultText.text = "SigMint failed (see console)";
+            resultText.text = "Mint failed (see console)";
         }
     }
 
